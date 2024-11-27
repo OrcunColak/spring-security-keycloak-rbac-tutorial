@@ -1,0 +1,45 @@
+version: '3.8'  # Keep this as 3.8 or change to 3.9 for native health checks
+
+services:
+  postgres:
+    image: postgres:16.2
+    environment:
+      POSTGRES_DB: db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    networks:
+      - keycloak_network
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]  # Check if PostgreSQL is ready
+      interval: 5s   # Interval between health checks
+      timeout: 5s    # Timeout for each health check
+      retries: 3     # Number of retries before marking as unhealthy
+  
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    command: start
+    environment:
+      KC_HOSTNAME: localhost
+      KC_HOSTNAME_PORT: 9090
+      KC_HOSTNAME_STRICT_BACKCHANNEL: false
+      KC_HTTP_ENABLED: true
+      KC_HOSTNAME_STRICT_HTTPS: false
+      KC_HEALTH_ENABLED: true
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres/db
+      KC_DB_USERNAME: postgres
+      KC_DB_PASSWORD: postgres
+    ports:
+      - "9090:8080"  # Expose Keycloak on port 9090
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy  # Ensure Keycloak starts only if PostgreSQL is healthy
+    networks:
+      - keycloak_network
+
+networks:
+  keycloak_network:
+    driver: bridge
