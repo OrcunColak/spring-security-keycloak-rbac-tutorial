@@ -10,7 +10,65 @@ http://localhost:9090
 http://localhost:9090/realms/vinotech/protocol/openid-connect/token
 http://localhost:9090/realms/vinotech/.well-known/openid-configuration
 
+# curl
 
+Run
+
+```
+curl --request POST ^
+--url http://localhost:9090/realms/vinotech/protocol/openid-connect/token ^
+--header "Content-Type: application/x-www-form-urlencoded" ^
+--data "client_id=vinotech-springboot-rest-api" ^
+--data "username=vino" ^
+--data "password=12345" ^
+--data "grant_type=password"
+dqpIymKG7LYYPtIgwalYlf3FW6RBA
+```
+
+Run
+
+```
+curl --request GET -i --url http://localhost:8082/api/v1/demo --header "Authorization: Bearer
+eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJCYVNMc3gxYzlETmROdHpjNlBHdlpmV0lKcHVWWUNuell1ZmNUbW1nVS1BIn0.eyJleHAiOjE3MzI2OTczNjQsImlhdCI6MTczMjY5NzA2NCwianRpIjoiZGY4NjJjNWQtZmQ2ZS00OGZhLTk2MWEtOTFlMWI0ZDNlOWI1IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDkwL3JlYWxtcy92aW5vdGVjaCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiIzOWNmMjE5Ni1hMzk2LTRhNjgtYWJmMS1mZjk1YTE5NjAxMmQiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJ2aW5vdGVjaC1zcHJpbmdib290LXJlc3QtYXBpIiwic2lkIjoiMWE4NzI5NmMtZGE5ZC00YjI3LTkyM2YtYzgyMWVkNjQ5NjhhIiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyJodHRwOi8vbG9jYWxob3N0OjkwOTAiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImRlZmF1bHQtcm9sZXMtdmlub3RlY2giLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsidmlub3RlY2gtc3ByaW5nYm9vdC1yZXN0LWFwaSI6eyJyb2xlcyI6WyJjbGllbnRfYWRtaW4iXX0sImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoidmlub3RoIGt1bWFyIiwicHJlZmVycmVkX3VzZXJuYW1lIjoidmlubyIsImdpdmVuX25hbWUiOiJ2aW5vdGgiLCJmYW1pbHlfbmFtZSI6Imt1bWFyIiwiZW1haWwiOiJvcmN1bmNvbGFrQHlhaG9vLmNvbSJ9.kNFhb4eQ-difcjNIDAKUbn7PPjZ_9_Re3I2r9Om7xU_6LaktbGp5opLPk3jvVCJbggBQndRxYmJFpTxrjwGjWxmfbM1P1p2vf4-suFzN-me036XneW6z9-McIMYhBcxUYMI3bhMOi-EWwIflgP7G7VYIRj08kegn2bPT7q5TnDog8BnbLoo_mXlhfBjQI69AY9jc1-ahI1OGghGefPF-IzsTT8DOGiq_Rpq-7qEIdkqnn1QxD9PN8dEmsVb1lxXXUnhqJKk3L3j1xf6yzRJ354VcERm7_V2oVx6DbfIpt3O-GwDPa6LHOsMOBqGNFj5fPjzqGVvHDVepDrZGXzk7KA"
+```
+
+Result :
+
+```
+HTTP/1.1 403
+WWW-Authenticate: Bearer error="insufficient_scope", error_description="The request requires higher privileges than provided by the access token.", error_uri="https://tools.ietf.org/html/rfc6750#section-3.1"
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Length: 0
+Date: Wed, 27 Nov 2024 08:45:42 GMT
+```
+
+Run
+
+```
+curl --request GET -i --url http://localhost:8082/api/v1/demo/hello-2 --header "Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJCYVNMc3gxYzlETmROdHpjNlBHdlpmV0lKcHVWWUNuell1ZmNUbW1nVS1BIn0.eyJleHAiOjE3MzI2OTczNjQsImlhdCI6MTczMjY5NzA2NCwianRpIjoiZGY4NjJjNWQtZmQ2ZS00OGZhLTk2MWEtOTFlMWI0ZDNlOWI1IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDkwL3JlYWxtcy92aW5vdGVjaCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiIzOWNmMjE5Ni1hMzk2LTRhNjgtYWJmMS1mZjk1YTE5NjAxMmQiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJ2aW5vdGVjaC1zcHJpbmdib290LXJlc3QtYXBpIiwic2lkIjoiMWE4NzI5NmMtZGE5ZC00YjI3LTkyM2YtYzgyMWVkNjQ5NjhhIiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyJodHRwOi8vbG9jYWxob3N0OjkwOTAiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImRlZmF1bHQtcm9sZXMtdmlub3RlY2giLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsidmlub3RlY2gtc3ByaW5nYm9vdC1yZXN0LWFwaSI6eyJyb2xlcyI6WyJjbGllbnRfYWRtaW4iXX0sImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoidmlub3RoIGt1bWFyIiwicHJlZmVycmVkX3VzZXJuYW1lIjoidmlubyIsImdpdmVuX25hbWUiOiJ2aW5vdGgiLCJmYW1pbHlfbmFtZSI6Imt1bWFyIiwiZW1haWwiOiJvcmN1bmNvbGFrQHlhaG9vLmNvbSJ9.kNFhb4eQ-difcjNIDAKUbn7PPjZ_9_Re3I2r9Om7xU_6LaktbGp5opLPk3jvVCJbggBQndRxYmJFpTxrjwGjWxmfbM1P1p2vf4-suFzN-me036XneW6z9-McIMYhBcxUYMI3bhMOi-EWwIflgP7G7VYIRj08kegn2bPT7q5TnDog8BnbLoo_mXlhfBjQI69AY9jc1-ahI1OGghGefPF-IzsTT8DOGiq_Rpq-7qEIdkqnn1QxD9PN8dEmsVb1lxXXUnhqJKk3L3j1xf6yzRJ354VcERm7_V2oVx6DbfIpt3O-GwDPa6LHOsMOBqGNFj5fPjzqGVvHDVepDrZGXzk7KA"
+```
+
+Result :
+
+```
+HTTP/1.1 200
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 0
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Type: text/plain;charset=UTF-8
+Content-Length: 41
+Date: Wed, 27 Nov 2024 08:46:11 GMT
+
+Hello from Spring boot & Keycloak - ADMIN
+```
 
 
 
